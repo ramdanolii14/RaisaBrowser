@@ -12,10 +12,16 @@ QString            SessionManager::s_pendingToken = QString();
 //
 // Fungsi utama:
 //   1. Override User-Agent agar konsisten sebagai Chrome desktop
-//   2. Set Sec-Fetch-* headers yang benar untuk navigasi
 //
-// CATATAN: Inject Authorization header ke OAuthLogin/MergeSession dihapus
-// karena endpoint tersebut sudah diblokir Google (menghasilkan 403 badauth).
+// CATATAN: Sec-Fetch-* headers TIDAK di-override untuk SubFrame.
+// GitHub (dan banyak situs modern) menggunakan <turbo-frame> / lazy-loading
+// subframe untuk memuat konten parsial saat scroll. Jika SubFrame mendapat
+// Sec-Fetch-Site: none + Sec-Fetch-Mode: navigate, server GitHub akan
+// memperlakukannya sebagai navigasi top-level baru → merespons dengan
+// full-page redirect → subframe me-load ulang → looping tak terhenti.
+//
+// Hanya MainFrame yang boleh mendapat Sec-Fetch-* override, itupun hanya
+// ketika benar-benar navigasi langsung dari user (bukan redirect chain).
 // ─────────────────────────────────────────────────────────────────────────────
 class RequestInterceptor : public QWebEngineUrlRequestInterceptor {
 public:
@@ -29,18 +35,24 @@ public:
             "AppleWebKit/537.36 (KHTML, like Gecko) "
             "Chrome/125.0.0.0 Safari/537.36");
 
-        // Hapus X-Requested-With (membocorkan identitas WebView ke server)
-        info.setHttpHeader("X-Requested-With", "");
+        // Jangan set X-Requested-With sama sekali — string kosong ("") tetap
+        // dikirim sebagai header kosong dan bisa membingungkan server.
+        // Header ini hanya perlu dihapus jika Chromium menambahkannya secara
+        // default, yang tidak terjadi pada versi QtWebEngine modern.
 
+        // Hanya tambahkan Sec-Fetch-* pada navigasi MainFrame (top-level).
+        // SubFrame TIDAK boleh disentuh — turbo-frame, lazy-load iframe, dll.
+        // mengandalkan nilai Sec-Fetch-* yang dihitung browser secara otomatis.
         auto resType = info.resourceType();
-        if (resType == QWebEngineUrlRequestInfo::ResourceTypeMainFrame ||
-            resType == QWebEngineUrlRequestInfo::ResourceTypeSubFrame) {
+        if (resType == QWebEngineUrlRequestInfo::ResourceTypeMainFrame) {
             info.setHttpHeader("Sec-Fetch-Mode", "navigate");
             info.setHttpHeader("Sec-Fetch-Dest", "document");
             info.setHttpHeader("Sec-Fetch-Site", "none");
             info.setHttpHeader("Sec-Fetch-User", "?1");
             info.setHttpHeader("Upgrade-Insecure-Requests", "1");
         }
+        // SubFrame, XHR, Fetch, dll. → biarkan Chromium menghitung
+        // Sec-Fetch-* secara otomatis sesuai konteks request yang sesungguhnya.
     }
 };
 

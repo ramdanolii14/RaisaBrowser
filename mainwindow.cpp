@@ -8,6 +8,13 @@
 #include <QWebEngineScriptCollection>
 #include <QWebEnginePermission>
 #include <QWebEngineFullScreenRequest>
+#include <QWebEngineNewWindowRequest>
+#include <QWebEngineDownloadRequest>
+#include <QWebEngineContextMenuRequest>
+#include <QFileDialog>
+#include <QFileInfo>
+#include <QDir>
+#include <QContextMenuEvent>
 #include <QLineEdit>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
@@ -289,6 +296,63 @@ void MainWindow::handlePermissionRequest(QWebEnginePermission permission) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+// BrowserView — QWebEngineView dengan context menu yang benar
+//
+// Menambahkan "Buka Link di Tab Baru" pada klik kanan link, menggunakan
+// callback agar tidak perlu coupling langsung ke MainWindow.
+// ─────────────────────────────────────────────────────────────────────────────
+class BrowserView : public QWebEngineView {
+public:
+    using OpenTabCb = std::function<void(const QUrl &)>;
+
+    explicit BrowserView(OpenTabCb cb, QWidget *parent = nullptr)
+        : QWebEngineView(parent), m_openTab(std::move(cb)) {}
+
+protected:
+    void contextMenuEvent(QContextMenuEvent *ev) override {
+        auto *req = lastContextMenuRequest();
+        QMenu *menu = new QMenu(this);
+
+        // ── Link actions ─────────────────────────────────────────────────────
+        if (req && !req->linkUrl().isEmpty()) {
+            QUrl url = req->linkUrl();
+            menu->addAction("Buka Link", [this, url]() { setUrl(url); });
+            menu->addAction("🔗 Buka Link di Tab Baru", [this, url]() {
+                if (m_openTab) m_openTab(url);
+            });
+            menu->addAction(page()->action(QWebEnginePage::CopyLinkToClipboard));
+            menu->addSeparator();
+        }
+
+        // ── Teks terpilih ────────────────────────────────────────────────────
+        if (req && !req->selectedText().isEmpty()) {
+            menu->addAction(page()->action(QWebEnginePage::Copy));
+            menu->addSeparator();
+        }
+
+        // ── Gambar ───────────────────────────────────────────────────────────
+        if (req && req->mediaType() == QWebEngineContextMenuRequest::MediaTypeImage) {
+            menu->addAction(page()->action(QWebEnginePage::CopyImageToClipboard));
+            menu->addAction(page()->action(QWebEnginePage::DownloadImageToDisk));
+            menu->addSeparator();
+        }
+
+        // ── Navigasi & lainnya ───────────────────────────────────────────────
+        menu->addAction(page()->action(QWebEnginePage::Back));
+        menu->addAction(page()->action(QWebEnginePage::Forward));
+        menu->addAction(page()->action(QWebEnginePage::Reload));
+        menu->addSeparator();
+        menu->addAction(page()->action(QWebEnginePage::SavePage));
+
+        menu->setAttribute(Qt::WA_DeleteOnClose);
+        menu->popup(ev->globalPos());
+    }
+
+private:
+    OpenTabCb m_openTab;
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
 // Inisialisasi anti-detection script ke profil
 // ─────────────────────────────────────────────────────────────────────────────
 static void installAntiDetectionScript(QWebEngineProfile *profile) {
@@ -562,6 +626,30 @@ MainWindow::MainWindow(QWidget *parent)
     myProfile = SessionManager::createProfile();
     installAntiDetectionScript(myProfile);
 
+    // ── Download handler ──────────────────────────────────────────────────────
+    connect(myProfile, &QWebEngineProfile::downloadRequested,
+            this, [this](QWebEngineDownloadRequest *dl) {
+        QString fileName = dl->downloadFileName();
+        QString ext      = QFileInfo(fileName).suffix().toLower();
+
+        // Buat filter berdasarkan ekstensi agar dialog menampilkan & mempertahankan ekstensi
+        QString filter = ext.isEmpty()
+            ? "Semua File (*)"
+            : QString("%1 Files (*.%2);;Semua File (*)").arg(ext.toUpper()).arg(ext);
+
+        QString suggested = QDir::homePath() + "/Downloads/" + fileName;
+        QString path = QFileDialog::getSaveFileName(this, "Simpan File", suggested, filter);
+        if (path.isEmpty()) { dl->cancel(); return; }
+
+        // Pastikan ekstensi tidak hilang jika user menghapusnya di dialog
+        if (!ext.isEmpty() && !path.endsWith("." + ext, Qt::CaseInsensitive))
+            path += "." + ext;
+
+        dl->setDownloadDirectory(QFileInfo(path).absolutePath());
+        dl->setDownloadFileName(QFileInfo(path).fileName());
+        dl->accept();
+    });
+
     tabs = new QTabWidget(this);
     tabs->setTabsClosable(true);
     tabs->setDocumentMode(true);
@@ -834,12 +922,31 @@ void MainWindow::addNewTab() {
     connect(loginAction,   &QAction::triggered, this, &MainWindow::startGoogleOAuth);
     connect(newTabAction,  &QAction::triggered, this, &MainWindow::addNewTab);
 
-    QWebEngineView *view = new QWebEngineView(tab);
+    auto openInNewTab = [this](const QUrl &url) {
+        addNewTab();
+        QWidget *t = tabs->currentWidget();
+        if (t) if (auto *v = t->findChild<QWebEngineView*>()) v->setUrl(url);
+    };
+    BrowserView *view = new BrowserView(openInNewTab, tab);
     QWebEnginePage *page = new QWebEnginePage(myProfile, view);
     view->setPage(page);
 
     connect(page, &QWebEnginePage::permissionRequested,
             this, &MainWindow::handlePermissionRequest);
+
+    // ── Handler link target=_blank / window.open() ────────────────────────────
+    // Tanpa ini, semua link yang minta dibuka di tab baru (hasil pencarian
+    // Bing, Google, dll.) akan dibuang diam-diam oleh QtWebEngine.
+    connect(page, &QWebEnginePage::newWindowRequested,
+            this, [this](QWebEngineNewWindowRequest &request) {
+        // Buat tab baru dan load URL yang diminta
+        addNewTab();
+        QWidget *newTab = tabs->currentWidget();
+        if (!newTab) return;
+        QWebEngineView *newView = newTab->findChild<QWebEngineView*>();
+        if (!newView) return;
+        request.openIn(newView->page());
+    });
 
     auto *s = view->settings();
     s->setAttribute(QWebEngineSettings::JavascriptEnabled,                   true);
