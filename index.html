@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RaisaBrowser</title>
+<style>
+    /* ide jelek tapi yaudah */
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #ffffff;
+        color: #333333;
+    }
+    header {
+        padding: 20px 50px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #f0e6fa;
+        position: absolute;
+        width: 100%;
+        box-sizing: border-box;
+        top: 0;
+    }
+    h1 {
+        color: #7e22ce;
+        margin: 0;
+        font-size: 1.5rem;
+    }
+    /* logic */
+    .hero {
+        text-align: center;
+        padding: 100px 20px 20px 20px;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        box-sizing: border-box;
+    }
+    .hero h2 {
+        font-size: 3.5rem;
+        color: #111;
+        margin-bottom: 10px;
+    }
+    .hero p {
+        font-size: 1.2rem;
+        color: #666;
+        margin-bottom: 30px;
+    }
+    .cta-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-bottom: 40px;
+    }
+    /* perbaiki sebelum deploy */
+    .btn {
+        text-decoration: none;
+        padding: 10px 20px;
+        border-radius: 6px;
+        font-size: 0.95rem;
+        font-weight: 600;
+        transition: all 0.2s;
+    }
+    .btn-download {
+        background-color: #7e22ce;
+        color: #ffffff;
+    }
+    .btn-download:hover {
+        background-color: #6b21a8;
+    }
+    .btn-github {
+        background-color: #ffffff;
+        color: #7e22ce;
+        border: 2px solid #7e22ce;
+    }
+    .btn-github:hover {
+        background-color: #faf5ff;
+    }
+    .preview-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    .main-screenshot {
+        width: 95%;
+        max-width: 1200px;
+        height: 60vh;
+        background-color: #f3e8ff;
+        border: 2px solid #e9d5ff;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #9333ea;
+        font-weight: bold;
+        box-shadow: 0 10px 25px rgba(126, 34, 206, 0.1);
+        overflow: hidden;
+    }
+    .features {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        padding: 100px 20px;
+        background-color: #faf5ff;
+        min-height: 50vh;
+    }
+    .feature-screenshot {
+        width: 300px;
+        height: 200px;
+        background-color: #ffffff;
+        border: 1px solid #e9d5ff;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #a855f7;
+        overflow: hidden;
+    }
+    footer {
+        text-align: center;
+        padding: 30px;
+        background-color: #ffffff;
+        color: #999;
+        border-top: 1px solid #f0e6fa;
+    }
+    img {
+        object-fit: cover;
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>RaisaBrowser</h1>
+</header>
+
+<section class="hero">
+    <h2>Browsing Lebih Cepat & Native</h2>
+    <p>Pengalaman berselancar internet tanpa bloatware. Simpel dan ringan.</p>
+    
+    <div class="cta-buttons">
+        <a href="https://github.com/ramdanolii14/RaisaBrowser/releases" class="btn btn-download">Download</a>
+        <a href="https://github.com/ramdanolii14/RaisaBrowser/" target="_blank" class="btn btn-github">Source Code</a>
+    </div>
+    
+    <div class="preview-container">
+        <div class="main-screenshot">
+            <img src="./raisabrowser_img.png" alt="RaisaBrowser Screenshot" width="100%" height="100%">
+        </div>
+    </div>
+</section>
+
+<section class="features">
+    <div class="feature-screenshot"><img src="./raisabrowser_img.png" alt="RaisaBrowser Screenshot" width="100%" height="100%"></div>
+    <div class="feature-screenshot"><img src="./raisabrowser_img.png" alt="RaisaBrowser Screenshot" width="100%" height="100%"></div>
+    <div class="feature-screenshot"><img src="./raisabrowser_img.png" alt="RaisaBrowser Screenshot" width="100%" height="100%"></div>
+</section>
+
+<footer>
+    <p>&copy; 2026 RaisaBrowser. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
