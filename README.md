@@ -23,3 +23,13 @@ i just list the bug and some notes in here
 <img width="983" height="113" alt="Screenshot_20260529_112137" src="https://github.com/user-attachments/assets/f44a7813-183d-4ea0-8c51-26aa8b2cd95b" />
 
 this is a really first version, make it happen first then make it better later!
+
+## Star History
+
+<a href="https://www.star-history.com/?repos=ramdanolii14%2FRaisaBrowser&type=date&legend=top-left">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=ramdanolii14/RaisaBrowser&type=date&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=ramdanolii14/RaisaBrowser&type=date&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=ramdanolii14/RaisaBrowser&type=date&legend=top-left" />
+ </picture>
+</a>
