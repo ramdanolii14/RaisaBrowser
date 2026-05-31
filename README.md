@@ -8,7 +8,7 @@ i just list the bug and some notes in here
 ## Bugs
 1. You can't login into your google account. (Use microsoft search engine and account instead)
 2. because google account can't be logged in, you can't logged in to your youtube account.
-3. There's a glitch when you try to close the app it will crash directly.
+3. There's a glitch when you try to close the app it will crash directly. (it's fine tho, nothing bad will happen)
 4. there's no pop up window, so you can't Open link in another window and some shi like that.
 
 ## Notes
