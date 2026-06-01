@@ -1,9 +1,91 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" prefix="og: https://ogp.me/ns#">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RaisaBrowser</title>
+
+<!-- Primary SEO -->
+<title>RaisaBrowser — Browser Ringan untuk Linux</title>
+<meta name="description" content="RaisaBrowser adalah browser open source yang ringan dan cepat, dibuat oleh Ramdan Olii dari Gorontalo. Dibangun dengan Qt WebEngine tanpa bloatware.">
+<meta name="keywords" content="RaisaBrowser, Raisa Browser, browser Linux, browser ringan, Qt WebEngine browser, browser open source, Ramdan Olii, developer Gorontalo, browser Indonesia, browser tanpa bloatware">
+<meta name="author" content="Ramdan Olii">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://ramdanolii.my.id/RaisaBrowser/">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ramdanolii.my.id/RaisaBrowser/">
+<meta property="og:title" content="RaisaBrowser — Browser Ringan untuk Linux">
+<meta property="og:description" content="Browser open source yang ringan dan cepat, dibuat oleh Ramdan Olii dari Gorontalo. Dibangun dengan Qt WebEngine tanpa bloatware.">
+<meta property="og:image" content="https://ramdanolii.my.id/RaisaBrowser/raisabrowser_img.png">
+<meta property="og:image:alt" content="Screenshot RaisaBrowser — browser ringan untuk Linux">
+<meta property="og:site_name" content="RaisaBrowser">
+<meta property="og:locale" content="id_ID">
+
+<!-- Twitter / X Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="RaisaBrowser — Browser Ringan untuk Linux">
+<meta name="twitter:description" content="Browser open source yang ringan dan cepat, dibangun dengan Qt WebEngine. Tanpa bloatware.">
+<meta name="twitter:image" content="https://ramdanolii.my.id/RaisaBrowser/raisabrowser_img.png">
+<meta name="twitter:creator" content="@Hexagon1400">
+<meta name="twitter:site" content="@Hexagon1400">
+
+<!-- JSON-LD Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "RaisaBrowser",
+  "url": "https://ramdanolii.my.id/RaisaBrowser/",
+  "description": "Browser open source yang ringan dan cepat, dibangun dengan Qt WebEngine tanpa bloatware.",
+  "applicationCategory": "BrowserApplication",
+  "operatingSystem": "Linux",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "IDR"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Ramdan Olii",
+    "url": "https://ramdanolii.my.id/",
+    "sameAs": [
+      "https://github.com/ramdanolii14",
+      "https://linkedin.com/in/ramdanolii",
+      "https://x.com/Hexagon1400"
+    ]
+  },
+  "downloadUrl": "https://github.com/ramdanolii14/RaisaBrowser/releases",
+  "codeRepository": "https://github.com/ramdanolii14/RaisaBrowser",
+  "license": "https://github.com/ramdanolii14/RaisaBrowser/blob/main/LICENSE",
+  "screenshot": "https://ramdanolii.my.id/RaisaBrowser/raisabrowser_img.png",
+  "softwareVersion": "latest",
+  "inLanguage": "id"
+}
+</script>
+
+<!-- Breadcrumb -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Ramdan Olii",
+      "item": "https://ramdanolii.my.id/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "RaisaBrowser",
+      "item": "https://ramdanolii.my.id/RaisaBrowser/"
+    }
+  ]
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700&display=swap" rel="stylesheet">
@@ -50,10 +132,7 @@
     color: var(--black);
   }
 
-  .logo span {
-    color: var(--gray-400);
-    font-weight: 400;
-  }
+  .logo span { color: var(--gray-400); font-weight: 400; }
 
   .nav-links { display: flex; gap: 0.5rem; }
 
@@ -72,11 +151,9 @@
   }
 
   .btn:hover { background: var(--black); color: var(--white); }
-
   .btn-fill { background: var(--black); color: var(--white); }
   .btn-fill:hover { background: var(--gray-800); }
 
-  /* Hero — fits one viewport height */
   .hero {
     display: flex;
     flex-direction: column;
@@ -247,62 +324,68 @@
 <body>
 
 <nav>
-  <a href="#" class="logo">Raisa<span>Browser</span></a>
+  <a href="https://ramdanolii.my.id/RaisaBrowser/" class="logo">Raisa<span>Browser</span></a>
   <div class="nav-links">
     <a href="https://github.com/ramdanolii14/RaisaBrowser" class="btn">Source</a>
     <a href="https://github.com/ramdanolii14/RaisaBrowser/releases" class="btn btn-fill">Download</a>
   </div>
 </nav>
 
-<div class="hero">
-  <div class="tag">Open Source · Linux Native</div>
-  <h1>Browse.<br><span class="muted">No bloat.</span></h1>
-  <p class="subtitle">Pengalaman berselancar internet yang simpel dan ringan — tanpa hal yang tidak perlu.</p>
-  <div class="cta-group">
-    <a href="https://github.com/ramdanolii14/RaisaBrowser/releases" class="btn btn-fill">↓ Download (Linux)</a>
-    <a href="https://github.com/ramdanolii14/RaisaBrowser" class="btn">View Source Code</a>
+<main>
+  <div class="hero">
+    <div class="tag">Open Source · Linux Native</div>
+    <h1>Browse.<br><span class="muted">No bloat.</span></h1>
+    <p class="subtitle">Pengalaman berselancar internet yang simpel dan ringan — tanpa hal yang tidak perlu.</p>
+    <div class="cta-group">
+      <a href="https://github.com/ramdanolii14/RaisaBrowser/releases" class="btn btn-fill">↓ Download (Linux)</a>
+      <a href="https://github.com/ramdanolii14/RaisaBrowser" class="btn">View Source Code</a>
+    </div>
   </div>
-</div>
 
-<div class="divider"></div>
+  <div class="divider"></div>
 
-<section class="screenshot-section">
-  <div class="section-label">Preview</div>
-  <img
-    src="https://ramdanolii.my.id/RaisaBrowser/raisabrowser_img.png"
-    alt="RaisaBrowser screenshot utama"
-    class="main-screenshot"
-  />
-  <div class="screenshot-grid">
-    <img src="https://ramdanolii.my.id/RaisaBrowser/raisabrowser_img.png" alt="Screenshot 1" />
-    <img src="https://ramdanolii.my.id/RaisaBrowser/raisabrowser_img.png" alt="Screenshot 2" />
-    <img src="https://ramdanolii.my.id/RaisaBrowser/raisabrowser_img.png" alt="Screenshot 3" />
-  </div>
-</section>
+  <section class="screenshot-section" aria-label="Preview RaisaBrowser">
+    <div class="section-label">Preview</div>
+    <img
+      src="https://ramdanolii.my.id/RaisaBrowser/raisabrowser_img.png"
+      alt="Screenshot RaisaBrowser — tampilan utama browser"
+      class="main-screenshot"
+      loading="eager"
+    />
+    <div class="screenshot-grid">
+      <img src="https://ramdanolii.my.id/RaisaBrowser/raisabrowser_img.png" alt="RaisaBrowser screenshot tampilan 1" loading="lazy" />
+      <img src="https://ramdanolii.my.id/RaisaBrowser/raisabrowser_img.png" alt="RaisaBrowser screenshot tampilan 2" loading="lazy" />
+      <img src="https://ramdanolii.my.id/RaisaBrowser/raisabrowser_img.png" alt="RaisaBrowser screenshot tampilan 3" loading="lazy" />
+    </div>
+  </section>
 
-<section class="specs-section">
-  <div class="spec-item">
-    <div class="spec-num">0×</div>
-    <div class="spec-label">Bloatware</div>
-    <div class="spec-desc">Tidak ada extension bawaan, tracking, atau fitur yang tidak diminta.</div>
-  </div>
-  <div class="spec-item">
-    <div class="spec-num">Native</div>
-    <div class="spec-label">Linux First</div>
-    <div class="spec-desc">Dibangun untuk Linux dari awal, bukan port dari platform lain.</div>
-  </div>
-  <div class="spec-item">
-    <div class="spec-num">OSS</div>
-    <div class="spec-label">Open Source</div>
-    <div class="spec-desc">Kode terbuka — fork, kontribusi, atau pelajari sesuka kamu.</div>
-  </div>
-</section>
+  <section class="specs-section" aria-label="Fitur RaisaBrowser">
+    <div class="spec-item">
+      <div class="spec-num">0×</div>
+      <div class="spec-label">Bloatware</div>
+      <div class="spec-desc">Tidak ada extension bawaan, tracking, atau fitur yang tidak diminta.</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-num">Native</div>
+      <div class="spec-label">Linux First</div>
+      <div class="spec-desc">Dibangun untuk Linux dari awal, bukan port dari platform lain.</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-num">OSS</div>
+      <div class="spec-label">Open Source</div>
+      <div class="spec-desc">Kode terbuka — fork, kontribusi, atau pelajari sesuka kamu.</div>
+    </div>
+  </section>
+</main>
 
 <footer>
-  <span class="footer-left">© 2026 RaisaBrowser · All rights reserved</span>
+  <span class="footer-left">
+    © 2026 <a href="https://ramdanolii.my.id/" style="color:inherit;text-decoration:none;">Ramdan Olii</a> · RaisaBrowser · All rights reserved
+  </span>
   <div class="footer-right">
     <a href="https://github.com/ramdanolii14/RaisaBrowser">GitHub</a>
     <a href="https://github.com/ramdanolii14/RaisaBrowser/releases">Releases</a>
+    <a href="https://ramdanolii.my.id/">ramdanolii.my.id</a>
   </div>
 </footer>
 
