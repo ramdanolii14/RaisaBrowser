@@ -1,5 +1,11 @@
 # Contributing to RaisaBrowser
 
+<div align="center">
+
+[![Fork & Start Contributing](https://img.shields.io/badge/Fork%20%26%20Start%20Contributing%20to%20RaisaBrowser-%23238636?style=for-the-badge&logo=github&logoColor=white&labelColor=161b22)](https://github.com/ramdanolii14/RaisaBrowser/fork)
+
+</div>
+
 <details open>
 <summary><strong>🇬🇧 English</strong></summary>
 
