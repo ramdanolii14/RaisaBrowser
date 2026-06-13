@@ -2,7 +2,7 @@
 
 A simple ah browser that doesn't track you at all. Focusing on the privacy. Privacy Number 1. Not like some mainstream browsers that force you to send your data (yeah we ain't like Google Chrome, Opera, Mozilla Firefox, Microsoft Edge, Brave, or Safari).
 
-sorry can't make a good .md file  
+sorry i can't make a good .md file  
 i just list the bug and some notes in here
 
 ## Bugs
